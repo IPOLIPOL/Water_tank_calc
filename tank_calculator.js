@@ -81,8 +81,8 @@ function calculateTable(refillData, consumption, startingVolume = 2000, maxCapac
 
 function printTable(title, tableData) {
     const table = new Table({
-        head: ['Месяц', 'Начало', 'Отбор', 'Поступило', 'Конец', 'Дефицит'],
-        colWidths: [8, 10, 10, 12, 8, 10],
+        head: ['Month', 'Beginning', 'Discharge', 'Inlet', 'End', 'Deficit'],
+        colWidths: [8, 12, 12, 8, 8, 10],
     });
 
     tableData.forEach(row => {
@@ -125,17 +125,15 @@ function main() {
     const { refillData, consumption } = parseInputFile(inputPath);
 
     const firstRun = calculateTable(refillData, consumption);
-    printTable('\n📊 ОСНОВНОЙ РАСЧЁТ:', firstRun.table);
+    printTable('\nDEFICIT IDENTIFICATION:', firstRun.table);
 
-    console.log(`Примечание: отбор происходит перед доливом`);
-    console.log(`Оптимальный объем определяется методом бинарного поиска`);
-    /*console.log(`📦 Максимальный дефицит за год: ${firstRun.maxDeficit} литров`);
-    console.log(`🔢 Рекомендуемый объём бочки: ${2000 + firstRun.maxDeficit} литров`);*/
+    console.log(`Note: withdrawal occurs before topping up.`);
+    console.log(`Note: optimal volume is determined by the binary search method.`);
 
     const optimalCapacity = findMinimumCapacity(refillData, consumption);
     const secondRun = calculateTable(refillData, consumption, optimalCapacity, optimalCapacity);
-    printTable('\n🔁 ПРОВЕРОЧНЫЙ ПОВТОР С ОПТИМАЛЬНЫМ ОБЪЁМОМ:', secondRun.table);
-    console.log(`✅ Минимально достаточный объём бочки: ${optimalCapacity} литров`);
+    printTable('\nTEST ITERATION WITH OPTIMAL VOLUME:', secondRun.table);
+    console.log(`Minimum sufficient volume of the tank: ${optimalCapacity} liters`);
 }
 
 main();
