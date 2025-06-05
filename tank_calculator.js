@@ -9,7 +9,7 @@ function parseInputFile(filePath) {
     const input = fs.readFileSync(filePath, 'utf-8');
     const lines = input.split(/\r?\n/);
     const refillData = {};
-    let consumption = 2000;
+    let consumption = 2000;// значение по умолчанию, если не указано в input.txt
 
     for (const line of lines) {
         const cleanLine = line.split('#')[0].trim();
@@ -30,7 +30,7 @@ function parseInputFile(filePath) {
     return { refillData, consumption };
 }
 
-function calculateTable(refillData, consumption, startingVolume = 2000, maxCapacity = 2000) {
+function calculateTable(refillData, consumption, startingVolume, maxCapacity) {
     const results = [];
     let volume = startingVolume;
     let maxDeficit = 0;
@@ -124,7 +124,7 @@ function main() {
     const inputPath = path.join(__dirname, 'input.txt');
     const { refillData, consumption } = parseInputFile(inputPath);
 
-    const firstRun = calculateTable(refillData, consumption);
+    const firstRun = calculateTable(refillData, consumption, consumption, consumption);
     printTable('\nDEFICIT IDENTIFICATION:', firstRun.table);
 
     console.log(`Note: withdrawal occurs before topping up.`);

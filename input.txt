@@ -15,5 +15,5 @@ Oct: 0  # October - pre-winter preparation
 Nov: 500  # November - late autumn
 Dec: 500  # December - winter preparation
 
-Consumption: 2000  # This will be used instead of the default 2000
+Consumption: 3000  # Every 2nd month
 
