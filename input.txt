@@ -1,0 +1,19 @@
+# Water refill data for barrel capacity calculation
+# Format: Month: Volume_in_liters
+# Lines starting with # are comments and will be ignored
+
+Jan: 200  # January - low refill due to winter
+Feb: 900  # February - increased refill
+Mar: 0  # March - spring season starts
+Apr: 0  # April - moderate refill
+May: 2000  # May - reduced refill
+Jun: 0  # June - summer peak refill
+Jul: 2000  # July - summer continues
+Aug: 0  # August - high summer refill
+Sep: 2000  # September - autumn begins
+Oct: 0  # October - pre-winter preparation
+Nov: 500  # November - late autumn
+Dec: 500  # December - winter preparation
+
+Consumption: 2000  # This will be used instead of the default 2000
+
