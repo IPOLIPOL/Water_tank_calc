@@ -16,4 +16,4 @@ Nov: 26  # November - late autumn
 Dec: 0  # December - winter preparation
 
 Consumption: 4000  # Every 2nd month
-
+Initial tank volume: 3000 # Setting initial tank volume equal to consumption 
