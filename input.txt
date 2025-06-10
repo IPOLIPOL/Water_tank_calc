@@ -2,18 +2,18 @@
 # Format: Month: Volume_in_liters
 # Lines starting with # are comments and will be ignored
 
-Jan: 200  # January - low refill due to winter
-Feb: 900  # February - increased refill
+Jan: 0  # January - low refill due to winter
+Feb: 0  # February - increased refill
 Mar: 0  # March - spring season starts
 Apr: 0  # April - moderate refill
-May: 2000  # May - reduced refill
-Jun: 0  # June - summer peak refill
-Jul: 2000  # July - summer continues
-Aug: 0  # August - high summer refill
-Sep: 2000  # September - autumn begins
-Oct: 0  # October - pre-winter preparation
-Nov: 500  # November - late autumn
-Dec: 500  # December - winter preparation
+May: 496  # May - reduced refill
+Jun: 7610  # June - summer peak refill
+Jul: 23513  # July - summer continues
+Aug: 25724  # August - high summer refill
+Sep: 10126  # September - autumn begins
+Oct: 1958  # October - pre-winter preparation
+Nov: 26  # November - late autumn
+Dec: 0  # December - winter preparation
 
-Consumption: 3000  # Every 2nd month
+Consumption: 4000  # Every 2nd month
 

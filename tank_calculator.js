@@ -9,7 +9,7 @@ function parseInputFile(filePath) {
     const input = fs.readFileSync(filePath, 'utf-8');
     const lines = input.split(/\r?\n/);
     const refillData = {};
-    let consumption = 2000;// значение по умолчанию, если не указано в input.txt
+    let consumption = 2000;// default value if not provided in input.txt
 
     for (const line of lines) {
         const cleanLine = line.split('#')[0].trim();
@@ -133,7 +133,7 @@ function main() {
     const optimalCapacity = findMinimumCapacity(refillData, consumption);
     const secondRun = calculateTable(refillData, consumption, optimalCapacity, optimalCapacity);
     printTable('\nTEST ITERATION WITH OPTIMAL VOLUME:', secondRun.table);
-    console.log(`Minimum sufficient volume of the tank: ${optimalCapacity} liters`);
+    console.log(`Minimum required volume of the tank: ${optimalCapacity} liters`);
 }
 
 main();
