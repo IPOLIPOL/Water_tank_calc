@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: barrel-calculator.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: barrel-calculator.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const fs = require('fs');
+const path = require('path');
+const Table = require('cli-table3');
+
+// === Pure functions ===
+
+/** @constant {string[]} */
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+/**
+ * Parses structured text input from a file into usable data.
+ * 
+ * @param {string} input - Raw text input.
+ * @returns {{ refillData: Object&lt;string, number>, consumption: number, initialCapacity: number }}
+ */
+function parseInputText(input) {
+    const lines = input.split(/\r?\n/); //use built-in menthod to split the input text to strings
+    const refillData = {}; // stores the refill volume by months in array
+
+    // Default values — will be overwritten if specified in the input
+    let consumption = 2000;
+    let initialCapacity = 2000;
+
+    // Iterate through the lines
+    for (const line of lines) {
+
+        //Remove comments (everything after #), trim whitespace and skip empty lines
+        const cleanLine = line.split('#')[0].trim();
+        if (!cleanLine) continue;
+
+        // Try to split the line into a key and value pair by colon
+        const [keyRaw, valueRaw] = cleanLine.split(':');
+        if (!keyRaw || !valueRaw) continue; // Skip malformed lines
+
+        // Normalize the key to lowercase to make comparison case-insensitive
+        const key = keyRaw.trim().toLowerCase();
+        // Try to convert the value to a number
+        const value = parseInt(valueRaw.trim(), 10);
+
+        // Handle special keys for consumption and tank volume
+        if (key === 'consumption') {
+            consumption = value;
+        } else if (key === 'initial tank volume') {
+            initialCapacity = value;
+        } else {
+            // Otherwise, treat the key as a month name (preserve original capitalization)
+            const month = keyRaw.trim(); 
+            if (MONTHS.includes(month)) {
+                refillData[month] = value;
+            }
+        }
+    }
+
+    return { refillData, consumption, initialCapacity };
+}
+
+/**
+ * Simulates monthly tank usage, calculating volume changes and deficits.
+ *
+ * @param {Object&lt;string, number>} refillData - Monthly refill volumes.
+ * @param {number} consumption - Amount withdrawn every even month.
+ * @param {number} startingVolume - Volume at the start of the year.
+ * @param {number} maxCapacity - Maximum capacity of the tank.
+ * @returns {{
+ *   table: Array&lt;{ month: string, begin: number, withdrawn: number, received: number, end: number, deficit: string | number }>,
+ *   finalVolume: number,
+ *   maxDeficit: number,
+ *   hasDeficit: boolean
+ * }}
+ */
+function calculateTable(refillData, consumption, startingVolume, maxCapacity) {
+    const results = []; // will hold the resulting array
+    let volume = startingVolume;
+    let maxDeficit = 0; //will hold the largest deficit across all months
+
+    // Iterate through all 12 months
+    for (let i = 0; i &lt; MONTHS.length; i++) {
+        const month = MONTHS[i];
+        const received = refillData[month] ?? 0;
+        const begin = volume; // holds initial volume for this month
+
+        let withdrawn = 0; // How much was withdrawn this month
+        let deficit = '—'; // Default deficit is none
+
+        // 1) Withdrawal
+        const isEvenMonth = (i + 1) % 2 === 0;
+        if (isEvenMonth) {
+            withdrawn = consumption;
+            if (volume &lt; consumption) {
+                const shortfall = consumption - volume;
+                deficit = '-' + shortfall;
+                maxDeficit = Math.max(maxDeficit, shortfall); // update tracked deficit
+                withdrawn = volume; // Only withdraw what is available
+                volume = 0;
+            } else {
+                volume -= consumption; // Sufficient water – subtract
+            }
+        }
+
+        //2) Refilling
+        volume += received;
+        const surplus = Math.max(0, volume - maxCapacity); // If overfilled, compute surplus. Not used
+        volume = Math.min(volume, maxCapacity); // Cap at max capacity
+
+        // Store result for this month
+        results.push({
+            month,
+            begin,
+            withdrawn,
+            received,
+            end: volume,
+            deficit,
+        });
+    }
+
+    // Return full result structure
+    return {
+        table: results,             // Array of month summaries
+        finalVolume: volume,
+        maxDeficit,
+        hasDeficit: results.some(row => row.deficit !== '—') // True if any month had deficit
+    };
+}
+
+/**
+ * Uses binary search to find the minimal tank volume required to avoid any deficit.
+ *
+ * @param {Object&lt;string, number>} refillData - Monthly refill volumes.
+ * @param {number} consumption - Amount withdrawn every even month.
+ * @returns {number|null} - Minimum sufficient volume or null if impossible.
+ */
+function findMinimumCapacity(refillData, consumption) {
+    let low = consumption; //setting the lower search limit
+    let high = 10000; //setting the upper search limit
+    let answer = null; //Best result found so far
+
+    // Binary search loop
+    while (low &lt;= high) {
+        const mid = Math.floor((low + high) / 2); // Try the midpoint capacity
+        const result = calculateTable(refillData, consumption, mid, mid); //Year evaluation with the starting and max tank level = mid
+
+        if (!result.hasDeficit) {
+            answer = mid; //stores mid as a possible result
+            high = mid - 1; // next search in a smaller solution space 
+        } else {
+            low = mid + 1; //next search in a bigger solution space 
+        }
+    }
+
+    return answer;
+}
+
+/**
+ * Converts table data into a formatted ASCII table.
+ *
+ * @param {Array&lt;Object>} tableData - Array of row objects with month info.
+ * @returns {string} - ASCII-formatted table string.
+ */
+function getTableString(tableData) {
+
+    //Instantiation of an object of the class 'Table' from 'cli-table3' using the constructor
+    //Setting up its columns  
+    const table = new Table({
+        head: ['Month', 'Beginning', 'Discharge', 'Inlet', 'End', 'Deficit'],
+        colWidths: [8, 12, 12, 8, 8, 10],
+    });
+
+    // Call the 'row' function for each tableData array element
+    tableData.forEach(row => {
+        // 'cli-table3' method .push adds an array of values as a row in a table.
+        table.push([
+            row.month,
+            row.begin,
+            row.withdrawn,
+            row.received,
+            row.end,
+            row.deficit,
+        ]);
+    });
+
+    // 'cli-table3' method .toString() returns all text rows formatted as ASCII-table
+    return table.toString();
+}
+
+// === Impure functions ===
+
+/**
+ * Reads input.txt file and parses it into usable data.
+ *
+ * @param {string} filePath - Path to the input.txt file.
+ * @returns {{ refillData: Object&lt;string, number>, consumption: number, initialCapacity: number }}
+ */
+function parseInputFile(filePath) {
+
+    // read and convert the file into the string; 
+    // write the string to the "input"
+    const input = fs.readFileSync(filePath, 'utf-8'); 
+
+    // call the parseInputText function to parse the string into the data structure
+    // returns the object {refillData, consumption, initialCapacity}
+    return parseInputText(input); 
+}
+
+/**
+ * Prints a table with a title to the console.
+ *
+ * @param {string} title - Table title.
+ * @param {Array&lt;Object>} tableData - Table rows.
+ */
+function printTable(title, tableData) {
+    console.log(title);
+    console.log(getTableString(tableData));
+}
+
+/**
+ * Entry point for the script. Parses input, calculates and prints tables.
+ */
+function main() {
+
+    // writing the full path to the 'input.txt' to the inputPath variable
+    const inputPath = path.join(__dirname, 'input.txt');
+    // writing of the input data to three variables by destructing the object returned by parseInputFile
+    const { refillData, consumption, initialCapacity } = parseInputFile(inputPath);
+
+    // Calculation of the first table and writing the result to "firstRun"
+    // result is stored as an array of month rows with data 
+    const firstRun = calculateTable(refillData, consumption, initialCapacity, initialCapacity);
+    // Output of the first table
+    printTable('\nDEFICIT IDENTIFICATION:', firstRun.table);
+    console.log(`Note: withdrawal occurs before topping up.`);
+    console.log(`Note: optimal volume is determined by the binary search method.`);
+
+    // Call for binary search function. Returns either the desired value or null
+    const optimalCapacity = findMinimumCapacity(refillData, consumption);
+    // Returns 10000 if optimalCapacity was not found (null) 
+    const finalCapacity = optimalCapacity ?? 10000;
+
+    // Calculation of the second table and writing the result to "secondRun"
+    const secondRun = calculateTable(refillData, consumption, finalCapacity, finalCapacity);
+    // Output of the second table
+    printTable('\nTEST ITERATION WITH OPTIMAL VOLUME:', secondRun.table);
+    if (optimalCapacity === null) {
+        console.log(`\n❌ Even with the maximum tank volume (10,000 liters), it is impossible to avoid a deficit.`);
+        console.log(`ℹ️ The manual refilling will be required.`);
+    } else {
+        console.log(`Minimum sufficient volume of the tank: ${optimalCapacity} liters`);
+    }
+} 
+
+main();
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#MONTHS">MONTHS</a></li><li><a href="global.html#calculateTable">calculateTable</a></li><li><a href="global.html#findMinimumCapacity">findMinimumCapacity</a></li><li><a href="global.html#getTableString">getTableString</a></li><li><a href="global.html#main">main</a></li><li><a href="global.html#parseInputFile">parseInputFile</a></li><li><a href="global.html#parseInputText">parseInputText</a></li><li><a href="global.html#printTable">printTable</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Thu Jun 12 2025 00:31:46 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
