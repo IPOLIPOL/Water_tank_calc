@@ -2,22 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Global</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Global - Documentation</title>
 
-    <script src="scripts/prettify/prettify.js"> </script>
-    <script src="scripts/prettify/lang-css.js"> </script>
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
 </head>
-
 <body>
 
-<div id="main">
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
 
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="global.html#MONTHS">MONTHS</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#calculateTable">calculateTable</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#findMinimumCapacity">findMinimumCapacity</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getTableString">getTableString</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#main">main</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#parseInputFile">parseInputFile</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#parseInputText">parseInputText</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#printTable">printTable</a></span></li>
+</nav>
+
+<div id="main">
+    
     <h1 class="page-title">Global</h1>
+    
 
     
 
@@ -28,7 +41,9 @@
 
 <header>
     
-        <h2></h2>
+        <h2>
+        
+        </h2>
         
     
 </header>
@@ -87,9 +102,7 @@
 
     
 
-    
-
-    
+     
 
     
 
@@ -98,22 +111,11 @@
 
         
             
+<div class="section-members">
 <h4 class="name" id="MONTHS"><span class="type-signature">(constant) </span>MONTHS<span class="type-signature"> :Array.&lt;string></span></h4>
 
 
 
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Array.&lt;string></span>
-
-
-        </li>
-    </ul>
 
 
 
@@ -161,8 +163,21 @@
 
 
 
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><code>Array.&lt;string></code></span>
 
 
+        </li>
+    </ul>
+
+
+
+
+
+</div>
 
         
     
@@ -172,12 +187,11 @@
 
         
             
+<div class="section-method">
 
     
 
-    
     <h4 class="name" id="calculateTable"><span class="type-signature"></span>calculateTable<span class="signature">(refillData, consumption, startingVolume, maxCapacity)</span><span class="type-signature"> &rarr; {Object}</span></h4>
-    
 
     
 
@@ -186,132 +200,6 @@
 <div class="description">
     Simulates monthly tank usage, calculating volume changes and deficits.
 </div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>refillData</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object.&lt;string, number></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Monthly refill volumes.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>consumption</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Amount withdrawn every even month.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>startingVolume</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Volume at the start of the year.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>maxCapacity</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Maximum capacity of the tank.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
 
 
 
@@ -365,60 +253,6 @@
 
 
 
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="findMinimumCapacity"><span class="type-signature"></span>findMinimumCapacity<span class="signature">(refillData, consumption)</span><span class="type-signature"> &rarr; {number|null}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Uses binary search to find the minimal tank volume required to avoid any deficit.
-</div>
-
-
-
-
-
-
-
-
-
     <h5>Parameters:</h5>
     
 
@@ -450,7 +284,7 @@
             <td class="type">
             
                 
-<span class="param-type">Object.&lt;string, number></span>
+<span class="param-type"><code>Object.&lt;string, number></code></span>
 
 
             
@@ -460,7 +294,10 @@
 
             
 
-            <td class="description last">Monthly refill volumes.</td>
+            <td class="description last">
+                Monthly refill volumes.
+                
+            </td>
         </tr>
 
     
@@ -473,7 +310,7 @@
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type"><code>number</code></span>
 
 
             
@@ -483,13 +320,120 @@
 
             
 
-            <td class="description last">Amount withdrawn every even month.</td>
+            <td class="description last">
+                Amount withdrawn every even month.
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>startingVolume</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                Volume at the start of the year.
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>maxCapacity</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                Maximum capacity of the tank.
+                
+            </td>
         </tr>
 
     
     </tbody>
 </table>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Object</code></span>
+
+
+    </dd>
+</dl>
+
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="findMinimumCapacity"><span class="type-signature"></span>findMinimumCapacity<span class="signature">(refillData, consumption)</span><span class="type-signature"> &rarr; {number|null}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Uses binary search to find the minimal tank volume required to avoid any deficit.
+</div>
 
 
 
@@ -543,67 +487,6 @@
 
 
 
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    - Minimum sufficient volume or null if impossible.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">number</span>
-|
-
-<span class="param-type">null</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="getTableString"><span class="type-signature"></span>getTableString<span class="signature">(tableData)</span><span class="type-signature"> &rarr; {string}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Converts table data into a formatted ASCII table.
-</div>
-
-
-
-
-
-
-
-
-
     <h5>Parameters:</h5>
     
 
@@ -629,13 +512,13 @@
 
         <tr>
             
-                <td class="name"><code>tableData</code></td>
+                <td class="name"><code>refillData</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Array.&lt;Object></span>
+<span class="param-type"><code>Object.&lt;string, number></code></span>
 
 
             
@@ -645,13 +528,101 @@
 
             
 
-            <td class="description last">Array of row objects with month info.</td>
+            <td class="description last">
+                Monthly refill volumes.
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>consumption</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                Amount withdrawn every even month.
+                
+            </td>
         </tr>
 
     
     </tbody>
 </table>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>number</code></span>
+|
+
+<span class="param-type"><code>null</code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    - Minimum sufficient volume or null if impossible.
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="getTableString"><span class="type-signature"></span>getTableString<span class="signature">(tableData)</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Converts table data into a formatted ASCII table.
+</div>
 
 
 
@@ -705,47 +676,105 @@
 
 
 
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>tableData</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Array.&lt;Object></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                Array of row objects with month info.
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
 
 
 
+
+
+
+
+
+
+
+
+<div class="section-returns">
 <h5>Returns:</h5>
 
         
-<div class="param-desc">
-    - ASCII-formatted table string.
-</div>
 
-
-
-<dl>
+<dl class="param-type">
     <dt>
-        Type
+        Type:
     </dt>
     <dd>
         
-<span class="param-type">string</span>
+<span class="param-type"><code>string</code></span>
 
 
     </dd>
 </dl>
 
+
+<div class="param-desc">
+    - ASCII-formatted table string.
+</div>
+
     
+</div>
 
 
 
-
-
+</div>
         
             
+<div class="section-method">
 
     
 
-    
     <h4 class="name" id="main"><span class="type-signature"></span>main<span class="signature">()</span><span class="type-signature"></span></h4>
-    
 
     
 
@@ -754,14 +783,6 @@
 <div class="description">
     Entry point for the script. Parses input, calculates and prints tables.
 </div>
-
-
-
-
-
-
-
-
 
 
 
@@ -826,14 +847,17 @@
 
 
 
+
+
+
+</div>
         
             
+<div class="section-method">
 
     
 
-    
     <h4 class="name" id="parseInputFile"><span class="type-signature"></span>parseInputFile<span class="signature">(filePath)</span><span class="type-signature"> &rarr; {Object}</span></h4>
-    
 
     
 
@@ -842,63 +866,6 @@
 <div class="description">
     Reads input.txt file and parses it into usable data.
 </div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>filePath</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Path to the input.txt file.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
 
 
 
@@ -952,60 +919,6 @@
 
 
 
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="parseInputText"><span class="type-signature"></span>parseInputText<span class="signature">(input)</span><span class="type-signature"> &rarr; {Object}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Parses structured text input from a file into usable data.
-</div>
-
-
-
-
-
-
-
-
-
     <h5>Parameters:</h5>
     
 
@@ -1031,13 +944,13 @@
 
         <tr>
             
-                <td class="name"><code>input</code></td>
+                <td class="name"><code>filePath</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type"><code>string</code></span>
 
 
             
@@ -1047,13 +960,68 @@
 
             
 
-            <td class="description last">Raw text input.</td>
+            <td class="description last">
+                Path to the input.txt file.
+                
+            </td>
         </tr>
 
     
     </tbody>
 </table>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Object</code></span>
+
+
+    </dd>
+</dl>
+
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="parseInputText"><span class="type-signature"></span>parseInputText<span class="signature">(input)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Parses structured text input from a file into usable data.
+</div>
 
 
 
@@ -1107,60 +1075,6 @@
 
 
 
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="printTable"><span class="type-signature"></span>printTable<span class="signature">(title, tableData)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Prints a table with a title to the console.
-</div>
-
-
-
-
-
-
-
-
-
     <h5>Parameters:</h5>
     
 
@@ -1186,13 +1100,13 @@
 
         <tr>
             
-                <td class="name"><code>title</code></td>
+                <td class="name"><code>input</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type"><code>string</code></span>
 
 
             
@@ -1202,36 +1116,68 @@
 
             
 
-            <td class="description last">Table title.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>tableData</code></td>
-            
-
-            <td class="type">
-            
+            <td class="description last">
+                Raw text input.
                 
-<span class="param-type">Array.&lt;Object></span>
-
-
-            
             </td>
-
-            
-
-            
-
-            <td class="description last">Table rows.</td>
         </tr>
 
     
     </tbody>
 </table>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Object</code></span>
+
+
+    </dd>
+</dl>
+
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="printTable"><span class="type-signature"></span>printTable<span class="signature">(title, tableData)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Prints a table with a title to the console.
+</div>
 
 
 
@@ -1285,6 +1231,82 @@
 
 
 
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>title</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                Table title.
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>tableData</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Array.&lt;Object></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                Table rows.
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -1296,6 +1318,12 @@
 
 
 
+
+
+
+
+
+</div>
         
     
 
@@ -1311,17 +1339,13 @@
 
 </div>
 
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#MONTHS">MONTHS</a></li><li><a href="global.html#calculateTable">calculateTable</a></li><li><a href="global.html#findMinimumCapacity">findMinimumCapacity</a></li><li><a href="global.html#getTableString">getTableString</a></li><li><a href="global.html#main">main</a></li><li><a href="global.html#parseInputFile">parseInputFile</a></li><li><a href="global.html#parseInputText">parseInputText</a></li><li><a href="global.html#printTable">printTable</a></li></ul>
-</nav>
-
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Thu Jun 12 2025 00:31:46 GMT+0200 (Central European Summer Time)
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.4</a> on Thu Jun 12 2025 01:05:55 GMT+0200 (Central European Summer Time) using the Minami theme.
 </footer>
 
-<script> prettyPrint(); </script>
-<script src="scripts/linenumber.js"> </script>
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
 </body>
 </html>
